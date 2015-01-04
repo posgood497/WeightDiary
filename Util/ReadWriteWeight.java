@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Patrick Osgood
  */
 
 package weightdiary.Util;
@@ -12,7 +10,10 @@ import weightdiary.Domain.WeightEntry;
 import weightdiary.Interfaces.IWeightRecord;
 
 /**
- *
+ * ReadWriteWeight class reads and writes WeightEntry objects to 
+ * binary data file. It writes date as a long integer (milliseconds)
+ * and double number (weight in pounds) pairing.
+ * 
  * @author patrick
  */
 public class ReadWriteWeight {
@@ -24,13 +25,13 @@ public class ReadWriteWeight {
         raf.writeDouble(weightEntry.getWeight());
     }
     
-    //Can read any weight record from anywhere in file
+    //Reads weight from record. WeightDiary project does not need date weight was
+    //recorded, so it is not read.
     public static double read(RandomAccessFile raf, int location) throws IOException{
         raf.seek(location + IWeightRecord.LENGTH_OF_DATE);
         double weightEntry = raf.readDouble();
         
         return weightEntry;
     }
-    
-    
+
 }
